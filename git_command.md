@@ -89,18 +89,35 @@ git push
 
 ### 4. 合併分支 (Merge)
 當您的分支開發完成，且測試確認沒問題後，就可以將其合併回主分支。
-*(註：在實際工作中，這步通常會透過 GitHub/GitLab 上的 Pull Request / Merge Request 來進行，由其他人 Code Review 後合併。若在本地端合併則按照以下步驟：)*
+*(註：在實際工作中，這步通常會透過 GitHub/GitLab 上的 Pull Request / Merge Request 來進行，由其他人 Code Review 後合併。若在本地端合併則按照以下詳細步驟：)*
 
 ```bash
 # 1. 先切換回主分支
 git checkout main
 
-# 2. 確保主分支是最新的
+# 2. 確保主分支是最新的 (非常重要！)
 git pull origin main
 
 # 3. 將您的開發分支合併到主分支
 git merge feature/your-feature-name
+```
 
+**⚠️ 如果發生合併衝突 (Merge Conflict)：**
+當 Git 提示有衝突無法自動合併時，請按照以下步驟處理：
+1. 打開編輯器 (VS Code等)，找出有衝突的檔案。
+2. 尋找 `<<<<<<<`, `=======`, `>>>>>>>` 標記，決定要保留哪一段程式碼（或兩者皆保留），然後刪除這些標記。
+3. 存檔後，將解完衝突的檔案加入暫存區：
+   ```bash
+   git add 檔案名稱
+   # 或 git add .
+   ```
+4. 完成合併的 Commit：
+   ```bash
+   git commit -m "Merge branch 'feature/your-feature-name' into main"
+   ```
+
+**完成合併後推送：**
+```bash
 # 4. 將合併後的主分支推送到遠端
 git push origin main
 ```
